@@ -20,13 +20,14 @@ class CommitAchievement
 
   register: (committed) ->
     return if @registered
+    self = this
     @registered = true
     console.log @repo.getOriginURL()
     @disposable = @repo.onDidChangeStatuses ->
-      @commitCount += 1
-      console.log "Commit count is " + @commitCount
+      self.commitCount += 1
+      console.log "Commit count is " + self.commitCount
       console.log "First commit, congrats!"
-      committed(@commitCount)
+      committed(self.commitCount)
 
   unregister: () ->
     return if @disposable?
