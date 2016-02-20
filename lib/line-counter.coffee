@@ -24,26 +24,13 @@ module.exports = LineCounter =
   serialize: ->
     lineCounterViewState: @lineCounterView.serialize()
 
-
-  # countLines: (editor) ->
-  #   numLines = editor.getLineCount()
-  #   op = \#
-  #   commentLines = 0
-  #   codeLines = 0
-  #   for i in [0 .. numLines]
-  #     if (editor.lineTextForBufferRow(i)).match op
-  #       commentLines+=1
-  #     else
-  #       codeLines+=1
-  #   return codeLines
-
   toggle: ->
     console.log 'LineCounter was toggled!'
 
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
-      editor = atom.workspace.getActiveTextEditor()
+      editor = atom.workspace.observeTextEditors(callback)
       lines = editor.getLineCount()
       @LineCounterView.lineCountAchievement(lines)
       @modalPanel.show()
