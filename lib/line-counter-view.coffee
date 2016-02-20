@@ -6,10 +6,18 @@ class LineCounterView
     @element.classList.add('line-counter')
 
     # Create message element
+    #message = document.createElement('div')
+    #message.textContent = "The LineCounter package is Alive! It's ALIVE!"
+    #message.classList.add('message')
+    #@element.appendChild(message)
+
+
+  lineCountAchievement: (lines) ->
     message = document.createElement('div')
-    message.textContent = "The LineCounter package is Alive! It's ALIVE!"
-    message.classList.add('message')
-    @element.appendChild(message)
+    message.textContent = "Achievement Unlocked: You wrote at least 50 lines!"
+    if (lines) >= 50
+      message.classList.add('message')
+      @element.appendChild(message)
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
@@ -20,10 +28,3 @@ class LineCounterView
 
   getElement: ->
     @element
-
-  lineCountAchievement: (lines) ->
-    displayText = "Achievement Unlocked: You wrote at least #{lines} lines!"
-    #if {lines} >= 50
-    @element.children[0].textContent = displayText
-    #else
-      #@element.children[0].textContent = "No achievement unlocked!"
