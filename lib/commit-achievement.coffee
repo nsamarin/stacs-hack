@@ -2,12 +2,11 @@
 # TODO: Check if status check indicates a commit or smth else
 
 {GitRepository} = require 'atom'
-Achievement = require './achievement'
 
 module.exports =
 class CommitAchievement
 
-  commits: [1, 5, 10]
+  commits: [1, 2, 3]
   commitsText:
     ["One small step for a man, One big step for a mankind ",
     "I keep on going ",
@@ -52,7 +51,7 @@ class CommitAchievement
     console.log @repo.getOriginURL()
     @disposable = @repo.onDidChangeStatuses ->
       self.handleCommits()
-      console.log "Commit count is " + self.commitCount
+      console.log "Commit detected! Commit count is " + self.commitCount
       committed(self)
 
   unregister: () ->
