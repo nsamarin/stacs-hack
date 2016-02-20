@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle stacs-hack'
+      'command': 'stacs-hack:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'stacs-hack'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'stacs-hack:toggle'
+        }
+      ]
+    ]
+  }
+]
