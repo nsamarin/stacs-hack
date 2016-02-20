@@ -5,14 +5,18 @@
 Achievement = require './achievement'
 
 module.exports =
-class CommitAchievement extends Achievement
+class CommitAchievement
 
-  constructor: (achievementTitle, achievementText, xp) ->
-    super(achievementTitle, achievementText, xp)
+  constructor: () ->
     @repo = atom.project.getRepositories()[0]
     @registered = false
     @commitCount = 0
     @disposable = null
+
+  setData: (achievementTitle, achievementText, xp) ->
+    @achievementTitle = achievementTitle
+    @achievementText = achievementText
+    @xp = xp
 
   register: (committed) ->
     return if @registered
