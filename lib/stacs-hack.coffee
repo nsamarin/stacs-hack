@@ -30,4 +30,7 @@ module.exports = StacsHack =
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
+      editor = atom.workspace.getActiveTextEditor()
+      lines = editor.getText().split('\n').length
+      @stacsHackView.setCount(lines)
       @modalPanel.show()
