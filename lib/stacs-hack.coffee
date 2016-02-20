@@ -1,4 +1,5 @@
 StacsHackView = require './stacs-hack-view'
+http = require 'http'
 {CompositeDisposable} = require 'atom'
 
 module.exports = StacsHack =
@@ -26,7 +27,6 @@ module.exports = StacsHack =
 
   toggle: ->
     console.log 'StacsHack was toggled!'
-
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
