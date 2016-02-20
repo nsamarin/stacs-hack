@@ -47,7 +47,7 @@ class CommitAchievement
     @registered = true
     console.log @repo.getOriginURL()
     @disposable = @repo.onDidChangeStatuses ->
-      console.log self.handleCommits
+      console.log self.handleCommits()
       console.log "Commit count is " + self.commitCount
       committed(self.commitCount)
 
