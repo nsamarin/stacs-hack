@@ -27,13 +27,12 @@ class LineAchievement extends Achievement
     @registered = false
     @lineCount = 0
 
-  countCodeLines: ->
+  countCodeLines: (editor) ->
     op = \#|\s
     codeLines = 0
-    editor = atom.workspace.observeTextEditors(callback)
     len = editor.getText().split('\n').length
     for i in [0 .. len]
-      if (!editor.lineTextForBufferRow(i).match op)
+      if (!editor.lineTextForBufferRow[i].match op)
          codeLines += 1
     return codeLines
 
@@ -41,12 +40,17 @@ class LineAchievement extends Achievement
     return if @registered
     @registered = true
     console.log("ping")
+    self = this
 
     atom.workspace.observeTextEditors (editor) ->
       view = atom.views.getView editor
       view.addEventListener 'keydown', (event) ->
         if event.which is 13
-          console.log "success"
+          console.log self.countCodeLines(editor)
+
+
+
+
 
 
 
