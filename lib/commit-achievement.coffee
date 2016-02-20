@@ -7,5 +7,5 @@ class CommitAchievement extends Achievement
   register: ->
     repo = atom.project.getRepositories()[0]
     repo.onDidChangeStatuses ->
-      console.log repo.getPathStatus()
+      console.log repo.isStatusModified repo.getPathStatus()
       console.log "First commit, congrats!"
