@@ -35,15 +35,17 @@ module.exports = StacsHack =
 
   addDataToUser: (achievement) ->
     @user.addXP(achievement.xp)
-    console.log @user.addAchievement(achievement)
-    
+    @user.addAchievement(achievement)
+    console.log "Current level is", @user.level, "Current xp is", @user.xp
+
   toggle: ->
     self = this
-    console.log 'StacsHack was toggled!'
+    console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
     # @lineAchievement.register()
 
     @commitAchievement.register (achievement) ->
       self.addDataToUser(achievement)
+
 
     if @modalPanel.isVisible()
       @modalPanel.hide()
