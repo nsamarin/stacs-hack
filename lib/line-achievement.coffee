@@ -1,6 +1,5 @@
 {GitRepository} = require 'atom'
 Achievement = require './achievement'
-$ = jQuery = require 'jquery'
 
 module.exports =
 class LineAchievement extends Achievement
@@ -47,37 +46,3 @@ class LineAchievement extends Achievement
       view.addEventListener 'keydown', (event) ->
         if event.which is 13
           console.log self.countCodeLines(editor)
-
-
-
-
-
-
-
-
-
-
-    # $(document).keypress (e) ->
-    #   console.log(e.which)
-    #   if (e.which is 13)
-    #     console.log("noice")
-    #
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #event.keyup -> (e)
-      #return if e.which isnt 13
-      #console.log countCodeLines
-      # isShift = false if e.which is 13

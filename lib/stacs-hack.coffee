@@ -1,5 +1,8 @@
 StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
+CommitAchievement = require './commit-achievement'
+User = require './user'
+
 {CompositeDisposable} = require 'atom'
 
 module.exports = StacsHack =
@@ -17,7 +20,10 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
+    @user = new User()
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
+    @commitAchievement = new CommitAchievement()
+
 
   deactivate: ->
     @modalPanel.destroy()
@@ -27,9 +33,17 @@ module.exports = StacsHack =
   serialize: ->
     stacsHackViewState: @stacsHackView.serialize()
 
+  addDataToUser: (achievement) ->
+    @user.addXP(achievement.xp)
+    console.log @user.addAchievement(achievement)
+    
   toggle: ->
+    self = this
     console.log 'StacsHack was toggled!'
-    @lineAchievement.register()
+    # @lineAchievement.register()
+
+    @commitAchievement.register (achievement) ->
+      self.addDataToUser(achievement)
 
     if @modalPanel.isVisible()
       @modalPanel.hide()
