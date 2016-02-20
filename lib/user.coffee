@@ -11,6 +11,7 @@ class User
 
   addAchievement: (achievement) ->
     @achievements.push(achievement)
+    achievement.output()
 
   addXP: (xp) ->
     @xp += xp
