@@ -7,8 +7,8 @@ Achievement = require './achievement'
 module.exports =
 class CommitAchievement
 
-  commits = [1, 5, 10]
-  commitsText =
+  commits: [1, 5, 10]
+  commitsText:
     ["One small step for a man, One big step for a mankind ",
     "I keep on going ",
     "Step by step, we are going forward ",
@@ -31,15 +31,19 @@ class CommitAchievement
     @disposable = null
 
   setData: (achievementTitle, achievementText, xp) ->
-    @achievementTitle = achievementTitle
-    @achievementText = achievementText
+    @title = achievementTitle
+    @text = achievementText
     @xp = xp
 
   handleCommits: ->
     @commitCount++
-    idx = @commitsText.indexOf(@commitCount)
+    idx = @commits.indexOf(@commitCount)
     return if idx is -1
-    @commitsText[idx]
+    title = @commitsText[idx]
+    description = "Insert description"
+    xp = -1
+    @setData title, description, xp
+
 
   register: (committed) ->
     return if @registered
@@ -47,10 +51,13 @@ class CommitAchievement
     @registered = true
     console.log @repo.getOriginURL()
     @disposable = @repo.onDidChangeStatuses ->
-      console.log self.handleCommits()
+      self.handleCommits()
       console.log "Commit count is " + self.commitCount
-      committed(self.commitCount)
+      committed(self)
 
   unregister: () ->
     return if @disposable?
     console.log @disposable
+
+  output: () ->
+    @title + " - " + @text + " - " + @xp + " xp"
