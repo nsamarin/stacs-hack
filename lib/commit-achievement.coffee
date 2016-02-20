@@ -23,7 +23,7 @@ class CommitAchievement
     @registered = true
     console.log @repo.getOriginURL()
     @disposable = @repo.onDidChangeStatuses ->
-      @commitCount++
+      @commitCount += 1
       console.log "Commit count is " + @commitCount
       console.log "First commit, congrats!"
       committed(@commitCount)
