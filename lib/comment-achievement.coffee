@@ -29,7 +29,8 @@ class CommentAchievement
   ]
   commentsXP: [20, 30, 50]
 
-  constructor: () ->
+  constructor: (notification) ->
+    @notification = notification
     @repo = atom.project.getRepositories()[0]
     @registered = false
     @commentCount = 0
@@ -49,6 +50,7 @@ class CommentAchievement
       idx = 1
     else
       idx = 2
+    @notification.commentAchNotification @commentCount, @commentsXP[idx], @commentsDescription[idx]
     @setData @commentsText[idx], @commentsDescription[idx], @commentsXP[idx]
 
 

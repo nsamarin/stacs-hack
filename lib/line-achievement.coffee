@@ -1,5 +1,4 @@
 {GitRepository} = require 'atom'
-# Notification = require './notification'
 
 module.exports =
 class LineAchievement

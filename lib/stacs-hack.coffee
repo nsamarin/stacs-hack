@@ -23,13 +23,13 @@ module.exports = StacsHack =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
-    
+
     @notification = new Notification()
     @connect = new Connect()
 
     @lineAchievement = new LineAchievement(@notification)
     @commitAchievement = new CommitAchievement(@notification)
-    @commentAchievement = new CommentAchievement()
+    @commentAchievement = new CommentAchievement(@notification)
 
 
     self = this
@@ -55,7 +55,10 @@ module.exports = StacsHack =
     stacsHackViewState: @stacsHackView.serialize()
 
   addDataToUser: (achievement) ->
+    lvl = @user.level
     @user.addXP(achievement.xp)
+    if lvl isnt @user.level
+      atom.notifications.addSuccess("Achievement Unlocked: You have reached level #{@user.level}", detail: "Going strong!", icon: 'ruby')
     @user.addAchievement(achievement)
     console.log achievement.output()
     console.log @user.username
