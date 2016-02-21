@@ -31,7 +31,6 @@ module.exports = StacsHack =
     @commitAchievement = new CommitAchievement(@notification)
     @commentAchievement = new CommentAchievement(@notification)
 
-
     self = this
     @connect.getUser("Bob")
     setTimeout (->
@@ -61,7 +60,6 @@ module.exports = StacsHack =
       atom.notifications.addSuccess("Achievement Unlocked: You have reached level #{@user.level}", detail: "Going strong!", icon: 'ruby')
     @user.addAchievement(achievement)
     console.log achievement.output()
-    console.log @user.username
     @connect.addUser(@user.username)
     @connect.addAchievement(@user.username, achievement.title.replace(" ", "_"), achievement.xp)
     console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
