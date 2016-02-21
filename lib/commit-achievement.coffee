@@ -6,11 +6,11 @@
 module.exports =
 class CommitAchievement
 
-  commits: [1, 2, 3]
+  commits: [1, 3, 5]
   commitsText: [
-    "First Commit!",
-    "Second Commit!",
-    "Thrid Commit!",
+    "First Commit",
+    "Third Commit",
+    "Fifth Commit",
     "Keep on Coding, you are still just at the start ",
     "You are awesome, Begginer level reached with ",
     "Ein hundert und vierzig - ",
@@ -53,8 +53,8 @@ class CommitAchievement
     self = this
     @registered = true
     @disposable = @repo.onDidChangeStatuses ->
-      self.handleCommits()
       console.log "Commit detected! Commit count is " + self.commitCount
+      return if not self.handleCommits()?
       committed(self)
 
   unregister: () ->

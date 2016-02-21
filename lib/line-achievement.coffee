@@ -58,18 +58,18 @@ class LineAchievement
     for line in lines
       nofront = line.replace /^\s+/g, ""
       x++
-      if !(line.length == 0 | nofront[0] == '#')
+      if !(line.trim().length == 0 | nofront[0] == '#')
          codeLines += 1
+    console.log codeLines
     return codeLines
 
   handleEnterPresses: (count) ->
     @lineCount = count
-    @commitCount++
-    idx = @commits.indexOf(@commitCount)
+    idx = @achLines.indexOf(@lineCount)
     return if idx is -1
-    @setData @commitsText[idx], @commitsDescription[idx], @commitsXP[idx]
+    @setData @achText[idx], @achDescription[idx], @achXP[idx]
 
-  register: ->
+  register: (enterPressed) ->
     return if @registered
     @registered = true
     self = this
@@ -78,4 +78,6 @@ class LineAchievement
       view.addEventListener 'keydown', (event) ->
         if event.which is 13
           count = self.countCodeLines(editor)
-          console.log count
+          console.log "Enter press detected! Current line is", self.lineCount
+          return if not self.handleEnterPresses(count)?
+          enterPressed(self)
