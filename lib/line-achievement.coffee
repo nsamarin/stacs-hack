@@ -3,11 +3,28 @@ Achievement = require './achievement'
 #$ = jQuery = require 'jquery'
 
 module.exports =
-class LineAchievement extends Achievement
+class LineAchievement
 
-  achLines = [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500]
-  achLinesText =
-    ["One small step for a man, One big step for a mankind ",
+  achLines : [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500]
+  achText : [
+    "5 Lines",
+    "10 Lines",
+    "20 Lines",
+    "50 Lines",
+    "100 Lines",
+    "150 Lines",
+    "200 Lines",
+    "300 Lines",
+    "400 Lines",
+    "500 Lines",
+    "750 Lines",
+    "1000 Lines",
+    "1250 Lines",
+    "1500 Lines"
+  ]
+
+  achDescription: [
+    "One small step for a man, One big step for a mankind ",
     "I keep on going ",
     "Step by step, we are going forward ",
     "Keep on Coding, you are still just at the start ",
@@ -20,48 +37,47 @@ class LineAchievement extends Achievement
     "Halfway through - ",
     "Tttttthousaaaaand! - ",
     "Going pro - ",
-    "One and a half - "]
+    "One and a half - "
+  ]
+  achXP: [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500]
 
-  constructor: (achievementTitle, achievementText, xp) ->
-    super(achievementTitle, achievementText, xp)
+  constructor: () ->
     @registered = false
     @lineCount = 0
 
+  setData: (achievementTitle, achievementText, xp) ->
+    @title = achievementTitle
+    @text = achievementText
+    @xp = xp
+
   countCodeLines: (editor) ->
-    #op = '\#'|'\s'
     codeLines = 0
     lines = editor.getText().split('\n')
     len = editor.getText().split('\n').length
-    #console.log lines
     x = 0
     for line in lines
-      #console.log x
-      #console.log line
       nofront = line.replace /^\s+/g, ""
-      #console.log nofront
       x++
-      if !(line.length == 0 | nofront[0] == '#')
+      if !(line.trim().length == 0 | nofront[0] == '#')
          codeLines += 1
+    console.log codeLines
     return codeLines
 
-  register: ->
+  handleEnterPresses: (count) ->
+    @lineCount = count
+    idx = @achLines.indexOf(@lineCount)
+    return if idx is -1
+    @setData @achText[idx], @achDescription[idx], @achXP[idx]
+
+  register: (enterPressed) ->
     return if @registered
     @registered = true
-    #console.log("ping")
     self = this
-
     atom.workspace.observeTextEditors (editor) ->
       view = atom.views.getView editor
       view.addEventListener 'keydown', (event) ->
         if event.which is 13
-          #console.log self.countCodeLines(editor)
-
-    # $(document).keypress (e) ->
-    #   console.log(e.which)
-    #   if (e.which is 13)
-    #     console.log("noice")
-    #
-    #event.keyup -> (e)
-      #return if e.which isnt 13
-      #console.log countCodeLines
-      # isShift = false if e.which is 13
+          count = self.countCodeLines(editor)
+          console.log "Enter press detected! Current line is", self.lineCount
+          return if not self.handleEnterPresses(count)?
+          enterPressed(self)

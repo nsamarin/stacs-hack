@@ -21,7 +21,7 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
-    @user = new User("Bob")
+    @user = new User("bob")
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
     @commitAchievement = new CommitAchievement()
     @connect = new Connect()
@@ -44,7 +44,9 @@ module.exports = StacsHack =
   toggle: ->
     self = this
     console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
-    # @lineAchievement.register()
+
+    @lineAchievement.register (achievement) ->
+      self.addDataToUser(achievement)
 
     @commitAchievement.register (achievement) ->
       self.addDataToUser(achievement)
