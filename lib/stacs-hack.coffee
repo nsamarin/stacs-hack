@@ -44,10 +44,11 @@ module.exports = StacsHack =
   toggle: ->
     self = this
     console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
-    # @lineAchievement.register()
 
-    @commitAchievement.register (achievement) ->
-      self.addDataToUser(achievement)
+    @lineAchievement.register()
+
+    # @commitAchievement.register (achievement) ->
+    #   self.addDataToUser(achievement)
 
     if @modalPanel.isVisible()
       @modalPanel.hide()
