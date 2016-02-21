@@ -5,15 +5,14 @@ class User
 
   achievements: []
   xp: 0
-  level: 1
+  level: 0
 
-  constructor: ->
+  constructor: (@username) ->
 
   addAchievement: (achievement) ->
     @achievements.push(achievement)
-    achievement.output()
 
   addXP: (xp) ->
     @xp += xp
     if @xp >= 100
-      @xp = Math.round (@xp / 100)
+      @level = Math.round (@xp / 100)

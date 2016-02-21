@@ -1,6 +1,7 @@
 StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
 CommitAchievement = require './commit-achievement'
+Connect = require './connect'
 User = require './user'
 
 {CompositeDisposable} = require 'atom'
@@ -20,9 +21,10 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
-    @user = new User()
+    @user = new User("Bob")
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
     @commitAchievement = new CommitAchievement()
+    @connect = new Connect()
 
 
   deactivate: ->
@@ -35,11 +37,13 @@ module.exports = StacsHack =
 
   addDataToUser: (achievement) ->
     @user.addXP(achievement.xp)
-    console.log @user.addAchievement(achievement)
-    
+    @user.addAchievement(achievement)
+    @connect.addAchievement(@user.username, achievement.title.replace(" ", "_"), achievement.xp)
+    console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
+
   toggle: ->
     self = this
-    console.log 'StacsHack was toggled!'
+    console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
     # @lineAchievement.register()
 
     @commitAchievement.register (achievement) ->
