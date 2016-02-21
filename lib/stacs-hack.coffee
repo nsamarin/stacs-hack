@@ -2,7 +2,7 @@ StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
 CommitAchievement = require './commit-achievement'
 CommentAchievement = require './comment-achievement'
-Notification = require './notification'
+# Notification = require './notification'
 
 Connect = require './connect'
 User = require './user'
@@ -24,12 +24,11 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
-    # @user = new User("Bob")
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
     @commitAchievement = new CommitAchievement()
     @commentAchievement = new CommentAchievement()
 
-    #@notification = new Notification()
+    # @notification = new Notification()
     @connect = new Connect()
 
     self = this
@@ -80,8 +79,4 @@ module.exports = StacsHack =
     if @modalPanel.isVisible()
       @modalPanel.hide()
     else
-
-      # editor = atom.workspace.getActiveTextEditor()
-      # lines = editor.getText().split('\n').length
-      # @stacsHackView.setCount(lines)
       # @modalPanel.show()
