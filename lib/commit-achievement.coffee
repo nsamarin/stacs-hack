@@ -29,7 +29,7 @@ class CommitAchievement
 
   constructor: (notification) ->
     @notification = notification
-    @repo = atom.project.getRepositories()[0]
+    # @repo = atom.project.getRepositories()[0]
     @registered = false
     @commitCount = 0
     @disposable = null
@@ -49,6 +49,8 @@ class CommitAchievement
 
   register: (committed) ->
     return if @registered
+    return if not @repo?
+    console.log "ping"
     self = this
     @registered = true
     @disposable = @repo.onDidChangeStatuses ->
@@ -62,3 +64,14 @@ class CommitAchievement
 
   output: () ->
     @title + " - " + @text + " - " + @xp + " xp"
+
+
+
+
+    g
+    g
+    g
+    g
+    g
+    g
+    g
