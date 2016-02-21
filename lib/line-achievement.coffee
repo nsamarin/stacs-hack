@@ -1,6 +1,5 @@
 {GitRepository} = require 'atom'
-Achievement = require './achievement'
-Notification = require './notification'
+# Notification = require './notification'
 
 module.exports =
 class LineAchievement
@@ -41,8 +40,8 @@ class LineAchievement
   ]
   achXP: [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500]
 
-  constructor: () ->
-    @notification = new Notification()
+  constructor: (notification) ->
+    @notification = notification
     @registered = false
     @lineCount = 0
 
@@ -68,7 +67,7 @@ class LineAchievement
     @lineCount = count
     idx = @achLines.indexOf(@lineCount)
     return if idx is -1
-    @notification.lineAchNotification @achText[idx], @achXP[idx], @achDescription[idx]
+    @notification.lineAchNotification @lineCount, @achXP[idx], @achDescription[idx]
     @setData @achText[idx], @achDescription[idx], @achXP[idx]
 
   register: (enterPressed) ->

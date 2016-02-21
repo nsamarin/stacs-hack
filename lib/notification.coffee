@@ -16,13 +16,13 @@ module.exports =
     lineAchNotification: (numLines, xp, description) ->
       marker = #amount marker (every 100?)
       msg = "Write #{marker} amount of lines." #achievement message for surpassing certain amount of lines
-      atom.notifications.addSuccess("Achievement Unlocked: You have #{numLines} lines! +#{xp} XP!", detail: description)
+      atom.notifications.addSuccess("Achievement Unlocked: You have #{numLines} lines! +#{xp} XP!", detail: description, icon: 'mortar-board')
       # User.addAchievement(msg)
-      return atom.notifications.getMessage()
+      # return atom.notifications.getMessage()
 
-    commitAchNotification: (numCommits)->
-      marker = #amount marker (every 10?)
-      atom.notifications.addSuccess("Achievement Unlocked: You have #{numCommits} commits!")
-      msg = "Commit #{marker} times." #achievement message for certain amount of commits
+    commitAchNotification: (numCommits, xp, description)->
+      # marker = #amount marker (every 10?)
+      atom.notifications.addSuccess("Achievement Unlocked: You have #{numCommits} commits! +#{xp} XP!", detail: description, icon: 'rocket')
+      # msg = "Commit #{marker} times." #achievement message for certain amount of commits
       # User.addAchievement(msg)
-      return atom.notifications.getMessage()
+      # return atom.notifications.getMessage()

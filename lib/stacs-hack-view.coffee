@@ -6,7 +6,7 @@ class StacsHackView
     @element.classList.add('stacs-hack')
 
     # Create message element
-    message = document.createElement('div')
+    message = document.createElement('input')
     message.textContent = "The StacsHack package is Alive! It's ALIVE!"
     message.classList.add('message')
     @element.appendChild(message)

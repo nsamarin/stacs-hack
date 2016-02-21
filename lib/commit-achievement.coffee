@@ -1,6 +1,5 @@
-# CommitAchievement Class
-
 {GitRepository} = require 'atom'
+# Notification = require './notification'
 
 module.exports =
 class CommitAchievement
@@ -23,13 +22,14 @@ class CommitAchievement
     "One and a half - "]
 
   commitsDescription: [
-    "One small step for a man, One big step for a mankind",
-    "I keep on going",
-    "Step by step, we are going forward"
+    "One small step for a man, One big step for a mankind!",
+    "I keep on going!",
+    "Step by step, we are going forward!"
   ]
   commitsXP: [100, 200, 300]
 
-  constructor: () ->
+  constructor: (notification) ->
+    @notification = notification
     @repo = atom.project.getRepositories()[0]
     @registered = false
     @commitCount = 0
@@ -44,6 +44,7 @@ class CommitAchievement
     @commitCount++
     idx = @commits.indexOf(@commitCount)
     return if idx is -1
+    @notification.commitAchNotification @commitCount, @commitsXP[idx], @commitsDescription[idx]
     @setData @commitsText[idx], @commitsDescription[idx], @commitsXP[idx]
 
 

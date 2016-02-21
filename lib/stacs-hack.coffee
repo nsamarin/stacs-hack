@@ -2,7 +2,7 @@ StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
 CommitAchievement = require './commit-achievement'
 CommentAchievement = require './comment-achievement'
-# Notification = require './notification'
+Notification = require './notification'
 
 Connect = require './connect'
 User = require './user'
@@ -23,13 +23,14 @@ module.exports = StacsHack =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
+    
+    @notification = new Notification()
+    @connect = new Connect()
 
-    @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
-    @commitAchievement = new CommitAchievement()
+    @lineAchievement = new LineAchievement(@notification)
+    @commitAchievement = new CommitAchievement(@notification)
     @commentAchievement = new CommentAchievement()
 
-    # @notification = new Notification()
-    @connect = new Connect()
 
     self = this
     @connect.getUser("Bob")
@@ -67,7 +68,6 @@ module.exports = StacsHack =
     console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
 
     @lineAchievement.register (achievement) ->
-      # self.notification.lineAchNotification(20)
       self.addDataToUser(achievement)
 
     @commitAchievement.register (achievement) ->
