@@ -24,3 +24,4 @@ class StacsHackView
   setCount: (count) ->
     displayText = "There #{count} lines."
     @element.children[0].textContent = displayText
+  
