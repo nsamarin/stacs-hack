@@ -31,10 +31,12 @@ module.exports = StacsHack =
     @commitAchievement = new CommitAchievement(@notification)
     @commentAchievement = new CommentAchievement(@notification)
 
+    @connect.addUser("nsamarin")
+
     self = this
-    @connect.getUser("Bob")
+    @connect.getUser("nsamarin")
     setTimeout (->
-      self.createUser self.connect.returnUser("Bob")),
+      self.createUser self.connect.returnUser("nsamarin")),
       1000
 
   createUser: (data) ->
