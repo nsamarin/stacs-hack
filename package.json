@@ -1,5 +1,5 @@
 {
-  "name": "stacs-hack",
+  "name": "achieve-atom",
   "main": "./lib/stacs-hack",
   "version": "0.1.0",
   "description": "A short description of your package",
