@@ -2,7 +2,7 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle stacs-hack'
+      'label': 'Toggle AchieveTheAtom'
       'command': 'stacs-hack:toggle'
     }
   ]
@@ -10,7 +10,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'stacs-hack'
+      'label': 'AchieveTheAtom'
       'submenu': [
         {
           'label': 'Toggle'
