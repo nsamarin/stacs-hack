@@ -44,6 +44,7 @@ module.exports = StacsHack =
     @user.addAchievement(achievement)
     console.log achievement.output()
     console.log @user.username
+    @connect.addUser(@user.username)
     @connect.addAchievement(@user.username, achievement.title.replace(" ", "_"), achievement.xp)
     console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
 

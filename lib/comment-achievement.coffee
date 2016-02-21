@@ -75,7 +75,7 @@ class CommentAchievement
       atom.workspace.observeTextEditors (editor) ->
         view = atom.views.getView editor
         view.addEventListener 'click', (event) ->
-          event.target.removeEventListener 'click', arguments.callee
+          view.removeEventListener 'click', arguments.callee
           count = self.countCodeLines(editor)
           console.log "Commit detected! Comment count is " + count
           return if not self.handleComments(count)?
