@@ -1,4 +1,5 @@
 http = require 'http'
+<<<<<<< HEAD
 https = require 'https'
 
 global.bla = []
@@ -12,6 +13,11 @@ module.exports =
 
     friends: ->
       ''
+=======
+
+module.exports =
+  class Connect
+>>>>>>> origin/master
     getAchievements: (user) ->
       http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user }, (res) ->
         data = ''
@@ -20,6 +26,7 @@ module.exports =
             data += chunk.toString()
         res.on 'end', () ->
             responseJ = JSON.parse(data)
+<<<<<<< HEAD
             global.ach.push(responseJ.achievements)
 
 
@@ -29,10 +36,19 @@ module.exports =
       @fr = 'ho'
       responseJ = ''
       y = https.get {host: 'api.github.com', path: '/users/' + user + '/followers', headers: {"user-agent": "ach-atom"}}, (res) ->
+=======
+            console.log responseJ
+            return responseJ
+
+    getFriendsAchievements: (user) ->
+      userAch = getAchievements(user)
+      http.get {'https://www.github.com', path: '/' + 'tomcek112' + '/following'}, (res) ->
+>>>>>>> origin/master
         data = ''
         res.on 'data', (chunk) ->
             data += chunk.toString()
         res.on 'end', () ->
+<<<<<<< HEAD
           responseJ = JSON.parse(data)
           for ob in responseJ
             global.bla.push(ob.login)
@@ -66,10 +82,17 @@ module.exports =
       achie = global.ach
       global.ach = []
       return achie
+=======
+          console.log data
+>>>>>>> origin/master
 
     addAchievement: (user, achievement, xp) ->
       xpString = xp.toString()
       http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user + '/add/' + achievement + '/' + xpString }, (res) ->
+<<<<<<< HEAD
+=======
+        console.log '/stacs/db/' + user + '/add/' + achievement + '/' + xpString
+>>>>>>> origin/master
         data = ''
         res.on 'data', (chunk) ->
             data += chunk.toString()
@@ -83,6 +106,7 @@ module.exports =
         res.on 'data', (chunk) ->
             data += chunk.toString()
         res.on 'end', () ->
+<<<<<<< HEAD
             return data
 
     getXP: (user) ->
@@ -99,3 +123,7 @@ module.exports =
       xp = global.xp
       global.xp = []
       return xp
+=======
+            console.log data
+            return data
+>>>>>>> origin/master

@@ -7,6 +7,8 @@
 
 module.exports =
 class Achievement
-  constructor: (@achievementTitle, @achievementText) ->
+  constructor: (@achievementTitle, @achievementText, @xp) ->
+  register: ->
+  unregister: ->
   output: ->
-    console.log "Achievement (" + @achievementTitle + ", " + @achievementText + ")"
+    "Achievement (" + @achievementTitle + ", " + @achievementText + ", " + @xp + ")"
