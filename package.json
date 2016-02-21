@@ -1,7 +1,7 @@
 {
   "name": "achieve-atom",
   "main": "./lib/stacs-hack",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "The best way to spend your free time! Learn proper coding by completing fun and interactive challenges! Earn experience and attain levels! Compete with your friends and see who will be on the top of the leaderboard! What are you waiting for? Install this package NOW :)",
   "keywords": [],
   "activationCommands": {
