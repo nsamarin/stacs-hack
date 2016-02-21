@@ -1,6 +1,8 @@
 StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
 CommitAchievement = require './commit-achievement'
+CommentAchievement = require './comment-achievement'
+
 Connect = require './connect'
 User = require './user'
 
@@ -21,9 +23,11 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
-    @user = new User("bob")
+    @user = new User("Bob")
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
     @commitAchievement = new CommitAchievement()
+    @commentAchievement = new CommentAchievement()
+
     @connect = new Connect()
 
 
@@ -38,6 +42,8 @@ module.exports = StacsHack =
   addDataToUser: (achievement) ->
     @user.addXP(achievement.xp)
     @user.addAchievement(achievement)
+    console.log achievement.output()
+    console.log @user.username
     @connect.addAchievement(@user.username, achievement.title.replace(" ", "_"), achievement.xp)
     console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
 
@@ -49,6 +55,9 @@ module.exports = StacsHack =
       self.addDataToUser(achievement)
 
     @commitAchievement.register (achievement) ->
+      self.addDataToUser(achievement)
+
+    @commentAchievement.register (achievement) ->
       self.addDataToUser(achievement)
 
     if @modalPanel.isVisible()
