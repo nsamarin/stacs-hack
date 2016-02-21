@@ -1,6 +1,6 @@
 {GitRepository} = require 'atom'
 Achievement = require './achievement'
-#$ = jQuery = require 'jquery'
+Notification = require './notification'
 
 module.exports =
 class LineAchievement
@@ -24,24 +24,25 @@ class LineAchievement
   ]
 
   achDescription: [
-    "One small step for a man, One big step for a mankind ",
-    "I keep on going ",
-    "Step by step, we are going forward ",
-    "Keep on Coding, you are still just at the start ",
-    "You are awesome, Begginer level reached with ",
-    "Ein hundert und vierzig - ",
-    "Zwei Hundert, much programming, wow - ",
-    "One fifth of biggest achievement - ",
-    "Hundred more - ",
-    "Person, you have some determination - ",
-    "Halfway through - ",
-    "Tttttthousaaaaand! - ",
-    "Going pro - ",
-    "One and a half - "
+    "One small step for a man, One big step for a mankind!",
+    "I keep on going!",
+    "Step by step, we are going forward!",
+    "Keep on Coding, you are still just at the start!",
+    "You are awesome, Begginer level reached with!",
+    "Ein hundert und vierzig!",
+    "Zwei Hundert, much programming, wow!",
+    "One fifth of biggest achievement!",
+    "Hundred more!",
+    "Person, you have some determination!",
+    "Halfway through!",
+    "Tttttthousaaaaand!!",
+    "Going pro!",
+    "One and a half!"
   ]
   achXP: [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500]
 
   constructor: () ->
+    @notification = new Notification()
     @registered = false
     @lineCount = 0
 
@@ -67,6 +68,7 @@ class LineAchievement
     @lineCount = count
     idx = @achLines.indexOf(@lineCount)
     return if idx is -1
+    @notification.lineAchNotification @achText[idx], @achXP[idx], @achDescription[idx]
     @setData @achText[idx], @achDescription[idx], @achXP[idx]
 
   register: (enterPressed) ->
@@ -81,3 +83,6 @@ class LineAchievement
           console.log "Enter press detected! Current line is", self.lineCount
           return if not self.handleEnterPresses(count)?
           enterPressed(self)
+
+  output: () ->
+    @title + " - " + @text + " - " + @xp + " xp"
