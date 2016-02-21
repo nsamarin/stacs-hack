@@ -31,7 +31,7 @@ class CommentAchievement
 
   constructor: (notification) ->
     @notification = notification
-    @repo = atom.project.getRepositories()[0]
+    # @repo = atom.project.getRepositories()[0]
     @registered = false
     @commentCount = 0
     @disposable = null
@@ -71,6 +71,8 @@ class CommentAchievement
 
   register: (committed) ->
     return if @registered
+    return if not @repo?
+    console.log "ping"
     self = this
     @registered = true
     @disposable = @repo.onDidChangeStatuses ->
