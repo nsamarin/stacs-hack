@@ -4,6 +4,7 @@ https = require 'https'
 global.bla = []
 global.ach = []
 global.xp = []
+global.use = ''
 
 module.exports =
   class Connect
@@ -21,6 +22,16 @@ module.exports =
         res.on 'end', () ->
             responseJ = JSON.parse(data)
             global.ach.push(responseJ.achievements)
+
+    getUser: (user) ->
+      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user }, (res) ->
+        data = ''
+        responseJ = ''
+        res.on 'data', (chunk) ->
+            data += chunk.toString()
+        res.on 'end', () ->
+            responseJ = JSON.parse(data)
+            global.use = responseJ
 
 
     getFriends: (user) ->
@@ -99,3 +110,8 @@ module.exports =
       xp = global.xp
       global.xp = []
       return xp
+
+    returnUser: () ->
+      use1 = global.use
+      global.use = ''
+      return use1
