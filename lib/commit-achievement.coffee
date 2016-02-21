@@ -1,5 +1,4 @@
 # CommitAchievement Class
-# TODO: Check if status check indicates a commit or smth else
 
 {GitRepository} = require 'atom'
 

@@ -1,6 +1,9 @@
 StacsHackView = require './stacs-hack-view'
 LineAchievement = require './line-achievement'
 CommitAchievement = require './commit-achievement'
+CommentAchievement = require './comment-achievement'
+Notification = require './notification'
+
 Connect = require './connect'
 User = require './user'
 
@@ -21,11 +24,27 @@ module.exports = StacsHack =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'stacs-hack:toggle': => @toggle()
 
-    @user = new User("bob")
+    # @user = new User("Bob")
     @lineAchievement = new LineAchievement("Line Achievement", "Congrats on x lines", 0)
     @commitAchievement = new CommitAchievement()
+    @commentAchievement = new CommentAchievement()
+
+    #@notification = new Notification()
     @connect = new Connect()
 
+    self = this
+    @connect.getUser("Bob")
+    setTimeout (->
+      self.createUser self.connect.returnUser("Bob")),
+      1000
+
+  createUser: (data) ->
+    @user = new User(data.username)
+    @user.addXP(data.xp)
+    achievements = data.achievements.split(" ")
+    for a in achievements
+      @user.addAchievement a
+    console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
 
   deactivate: ->
     @modalPanel.destroy()
@@ -38,6 +57,9 @@ module.exports = StacsHack =
   addDataToUser: (achievement) ->
     @user.addXP(achievement.xp)
     @user.addAchievement(achievement)
+    console.log achievement.output()
+    console.log @user.username
+    @connect.addUser(@user.username)
     @connect.addAchievement(@user.username, achievement.title.replace(" ", "_"), achievement.xp)
     console.log @user.username, ": Current level is", @user.level, "Current xp is", @user.xp
 
@@ -46,9 +68,13 @@ module.exports = StacsHack =
     console.log 'AchieveTheAtom (ATA) has started! Get your XP!'
 
     @lineAchievement.register (achievement) ->
+      # self.notification.lineAchNotification(20)
       self.addDataToUser(achievement)
 
     @commitAchievement.register (achievement) ->
+      self.addDataToUser(achievement)
+
+    @commentAchievement.register (achievement) ->
       self.addDataToUser(achievement)
 
     if @modalPanel.isVisible()
