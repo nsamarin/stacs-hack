@@ -7,7 +7,7 @@ class User
   xp: 0
   level: 0
 
-  constructor: ->
+  constructor: (@username) ->
 
   addAchievement: (achievement) ->
     @achievements.push(achievement)
