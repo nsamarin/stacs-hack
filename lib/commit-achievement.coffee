@@ -49,7 +49,7 @@ class CommitAchievement
 
   register: (committed) ->
     return if @registered
-    return if not @repo?
+    return if @repo?
     self = this
     @registered = true
     @disposable = @repo.onDidChangeStatuses ->
