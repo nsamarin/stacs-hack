@@ -1,5 +1,6 @@
 {GitRepository} = require 'atom'
 Achievement = require './achievement'
+#$ = jQuery = require 'jquery'
 
 module.exports =
 class LineAchievement extends Achievement
@@ -27,22 +28,40 @@ class LineAchievement extends Achievement
     @lineCount = 0
 
   countCodeLines: (editor) ->
-    op = \#|\s
+    #op = '\#'|'\s'
     codeLines = 0
+    lines = editor.getText().split('\n')
     len = editor.getText().split('\n').length
-    for i in [0 .. len]
-      if (!editor.lineTextForBufferRow[i].match op)
+    #console.log lines
+    x = 0
+    for line in lines
+      #console.log x
+      #console.log line
+      nofront = line.replace /^\s+/g, ""
+      #console.log nofront
+      x++
+      if !(line.length == 0 | nofront[0] == '#')
          codeLines += 1
     return codeLines
 
   register: ->
     return if @registered
     @registered = true
-    console.log("ping")
+    #console.log("ping")
     self = this
 
     atom.workspace.observeTextEditors (editor) ->
       view = atom.views.getView editor
       view.addEventListener 'keydown', (event) ->
         if event.which is 13
-          console.log self.countCodeLines(editor)
+          #console.log self.countCodeLines(editor)
+
+    # $(document).keypress (e) ->
+    #   console.log(e.which)
+    #   if (e.which is 13)
+    #     console.log("noice")
+    #
+    #event.keyup -> (e)
+      #return if e.which isnt 13
+      #console.log countCodeLines
+      # isShift = false if e.which is 13
