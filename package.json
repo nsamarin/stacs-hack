@@ -8,7 +8,7 @@
   "activationCommands": {
     "atom-workspace": "stacs-hack:toggle"
   },
-  "repository": "https://github.com/atom/stacs-hack",
+  "repository": "https://github.com/nsamarin/stacs-hack",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
