@@ -14,7 +14,11 @@ module.exports =
     friends: ->
       ''
     getAchievements: (user) ->
-      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user }, (res) ->
+      http.get {
+      ###
+        connect to main db
+      ###
+      }, (res) ->
         data = ''
         responseJ = ''
         res.on 'data', (chunk) ->
@@ -24,7 +28,11 @@ module.exports =
             global.ach.push(responseJ.achievements)
 
     getUser: (user) ->
-      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user }, (res) ->
+      http.get {
+        ###
+          connect to main db
+        ###
+        }, (res) ->
         data = ''
         responseJ = ''
         res.on 'data', (chunk) ->
@@ -80,7 +88,11 @@ module.exports =
 
     addAchievement: (user, achievement, xp) ->
       xpString = xp.toString()
-      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user + '/add/' + achievement + '/' + xpString }, (res) ->
+      http.get {
+        ###
+          connect to main db
+        ###
+        }, (res) ->
         data = ''
         res.on 'data', (chunk) ->
             data += chunk.toString()
@@ -89,7 +101,11 @@ module.exports =
           return data
 
     addUser: (user) ->
-      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/adduser/' + user }, (res) ->
+      http.get {
+        ###
+          connect to main db
+        ###
+        }, (res) ->
         data = ''
         res.on 'data', (chunk) ->
             data += chunk.toString()
@@ -97,7 +113,11 @@ module.exports =
             return data
 
     getXP: (user) ->
-      http.get { host: 'www.lutzeyer.co.uk', path: '/stacs/db/' + user }, (res) ->
+      http.get {
+        ###
+          connect to main db
+        ### 
+        }, (res) ->
         data = ''
         responseJ = ''
         res.on 'data', (chunk) ->
